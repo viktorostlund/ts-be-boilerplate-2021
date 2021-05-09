@@ -1,0 +1,16 @@
+{
+    "name": "node-api-graphql-postgres",
+    "version": "1.0.0",
+    "description": "GraphQL server with Node.js, Express, and PostgreSQL",
+    "main": "server.js",
+    "license": "MIT",
+    "dependencies": {
+        "express": "^4.17.1",
+        "express-graphql": "^0.12.0",
+        "graphql": "^15.5.0",
+        "pg-promise": "^10.10.2"
+    },
+    "scripts": {
+        "start": "node server.js"
+    }
+}

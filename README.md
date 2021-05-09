@@ -1,3 +1,5 @@
 # verbose-train
 
-Basic Express server with GraphQL
+Basic GraphQL API built with Express and Postgres
+
+Given a first name, it returns the persons country fo birth
