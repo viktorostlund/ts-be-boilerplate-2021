@@ -4,35 +4,26 @@ var { buildSchema } = require('graphql');
 var pgp = require('pg-promise')(/* options */)
 var db = pgp('postgres://viktorostlund:password@localhost:5432/test_db')
 
-const createPerson = (name) => {
-  // Create Person in local PostgresQL database
-  return db.one(`INSERT INTO person (person_uid, first_name, last_name, gender, date_of_birth, country_of_birth) VALUES (uuid_generate_v4(), '${name}', 'Karlsson', 'Female', '1936-01-23', 'Sweden') RETURNING *;`)
+const createPerson = ({first_name, last_name, gender, date_of_birth, country_of_birth}) => {
+  // Create Person in DB
+  return db.one(`INSERT INTO person (person_uid, first_name, last_name, gender, date_of_birth, country_of_birth) VALUES (uuid_generate_v4(), '${first_name}', '${last_name}', '${gender}', '${date_of_birth}', '${country_of_birth}') RETURNING *;`)
     .then(function (data) {
       return data;
     })
     .catch(function (error) {
+      console.error(error)
       return error.message
     })
 }
 
-const getCountry = (name) => {
-  // Get data from local PostgresQL database
-  return db.one(`SELECT country_of_birth FROM person WHERE first_name = '${name}';`)
+const getPerson = (name) => {
+  // Get Person from DB
+  return db.one(`SELECT * FROM person WHERE first_name = '${name}' LIMIT 1;`)
     .then(function (data) {
-      return data.country_of_birth;
+      return data;
     })
     .catch(function (error) {
-      return error.message
-    })
-}
-
-const getAge = (name) => {
-  // Get data from local PostgresQL database
-  return db.one(`SELECT date_of_birth FROM person WHERE first_name = '${name}';`)
-    .then(function (data) {
-      return new Date(Date.now() - data.date_of_birth).getFullYear();
-    })
-    .catch(function (error) {
+      console.error(error)
       return error.message
     })
 }
@@ -40,16 +31,22 @@ const getAge = (name) => {
 /// Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
   type Mutation {
-    createPerson(name: String): Person
+    createPerson(
+      first_name: String!,
+      last_name: String!,
+      gender: String!,
+      date_of_birth: String!,
+      country_of_birth: String!
+      ): Person
   }
   type Query {
-    country(name: String): String
-    age(name: String): String
+    getPerson(name: String): Person
   }
   type Person {
     id: Int
     first_name: String
     last_name: String
+    gender: String
     email: String
     date_of_birth: String
     country_of_birth: String
@@ -59,15 +56,12 @@ var schema = buildSchema(`
 
 // The root provides a resolver function for each API endpoint
 var root = {
-createPerson: ({name}) => {
-  return createPerson(name);
-},
-country: ({name}) => {
-  return getCountry(name);
-},
-age: ({name}) => {
-  return getAge(name);
-},
+  createPerson: (props) => {
+    return createPerson(props);
+  },
+  getPerson: ({name}) => {
+    return getPerson(name);
+  },
 };
  
 var app = express();
