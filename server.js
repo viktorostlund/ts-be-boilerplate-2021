@@ -4,28 +4,24 @@ var { buildSchema } = require('graphql');
 var pgp = require('pg-promise')(/* options */)
 var db = pgp('postgres://viktorostlund:password@localhost:5432/test_db')
 
-const createPerson = ({first_name, last_name, gender, date_of_birth, country_of_birth}) => {
+const createPerson = async ({first_name, last_name, gender, date_of_birth, country_of_birth}) => {
   // Create Person in DB
-  return db.one(`INSERT INTO person (person_uid, first_name, last_name, gender, date_of_birth, country_of_birth) VALUES (uuid_generate_v4(), '${first_name}', '${last_name}', '${gender}', '${date_of_birth}', '${country_of_birth}') RETURNING *;`)
-    .then(function (data) {
-      return data;
-    })
-    .catch(function (error) {
-      console.error(error)
-      return error.message
-    })
+  try {
+    return await db.one(`INSERT INTO person (person_uid, first_name, last_name, gender, date_of_birth, country_of_birth) VALUES (uuid_generate_v4(), '${first_name}', '${last_name}', '${gender}', '${date_of_birth}', '${country_of_birth}') RETURNING *;`)
+  } catch (error) {
+    console.error(error)
+    return error.message
+  }
 }
 
-const getPerson = (name) => {
+const getPerson = async (name) => {
   // Get Person from DB
-  return db.one(`SELECT * FROM person WHERE first_name = '${name}' LIMIT 1;`)
-    .then(function (data) {
-      return data;
-    })
-    .catch(function (error) {
-      console.error(error)
-      return error.message
-    })
+  try {
+    return await db.one(`SELECT * FROM person WHERE first_name = '${name}' LIMIT 1;`)
+  } catch (error) {
+    console.error(error)
+    return error.message
+  }
 }
  
 /// Construct a schema, using GraphQL schema language
