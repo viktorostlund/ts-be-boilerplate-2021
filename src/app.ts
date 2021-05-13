@@ -1,4 +1,4 @@
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
 var express = require('express');
 var { graphqlHTTP } = require('express-graphql');
 var { buildSchema } = require('graphql');
@@ -14,7 +14,15 @@ console.log(`postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_URL}:${DB_PORT}/${DB}
 
 var db = pgp(`postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_URL}:${DB_PORT}/${DB}`)
 
-const createPerson = async ({first_name, last_name, gender, date_of_birth, country_of_birth}) => {
+type Person = {
+  first_name: String,
+  last_name: String,
+  gender: String,
+  date_of_birth: String,
+  country_of_birth: String
+}
+
+const createPerson = async ({first_name, last_name, gender, date_of_birth, country_of_birth}: Person) => {
   // Create Person in DB
   try {
     return await db.one(`INSERT INTO person (person_uid, first_name, last_name, gender, date_of_birth, country_of_birth) VALUES (uuid_generate_v4(), '${first_name}', '${last_name}', '${gender}', '${date_of_birth}', '${country_of_birth}') RETURNING *;`)
@@ -24,7 +32,7 @@ const createPerson = async ({first_name, last_name, gender, date_of_birth, count
   }
 }
 
-const getPerson = async (name) => {
+const getPerson = async (name: String) => {
   // Get Person from DB
   try {
     return await db.one(`SELECT * FROM person WHERE first_name = '${name}' LIMIT 1;`)
@@ -62,10 +70,10 @@ var schema = buildSchema(`
 
 // The root provides a resolver function for each API endpoint
 var root = {
-  createPerson: (props) => {
+  createPerson: (props: Person) => {
     return createPerson(props);
   },
-  getPerson: ({name}) => {
+  getPerson: ({name}: {name: String}) => {
     return getPerson(name);
   },
 };
