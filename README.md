@@ -1,4 +1,4 @@
-# verbose-train
+# Typescript backend boilerplate 2021
 
 Basic NodeJS/Typescript API for getting or creating data about people to and from a database.
 

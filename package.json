@@ -1,7 +1,7 @@
 {
-    "name": "node-api-graphql-postgres",
+    "name": "ts-be-boilerplate-2021",
     "version": "1.0.0",
-    "description": "GraphQL server with Node.js, Express, and PostgreSQL",
+    "description": "Basic typescript backend boilerplate",
     "main": "server.js",
     "license": "MIT",
     "dependencies": {
