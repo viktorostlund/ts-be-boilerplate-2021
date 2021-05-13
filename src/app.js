@@ -1,8 +1,18 @@
+const dotenv = require('dotenv');
 var express = require('express');
 var { graphqlHTTP } = require('express-graphql');
 var { buildSchema } = require('graphql');
 var pgp = require('pg-promise')(/* options */)
-var db = pgp('postgres://viktorostlund:password@localhost:5432/test_db')
+
+// load the environment variables from the .env file
+dotenv.config({
+  path: '.env'
+});
+
+const { DB_USERNAME, DB_PASSWORD, DB,  DB_URL, DB_PORT } = process.env
+console.log(`postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_URL}:${DB_PORT}/${DB}`)
+
+var db = pgp(`postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_URL}:${DB_PORT}/${DB}`)
 
 const createPerson = async ({first_name, last_name, gender, date_of_birth, country_of_birth}) => {
   // Create Person in DB
