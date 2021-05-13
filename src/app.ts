@@ -14,7 +14,7 @@ const { DB_USERNAME, DB_PASSWORD, DB,  DB_URL, DB_PORT } = process.env
 
 const db = pgp(`postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_URL}:${DB_PORT}/${DB}`)
 
-type Person = {
+interface Person {
   first_name: String,
   last_name: String,
   gender: String,
