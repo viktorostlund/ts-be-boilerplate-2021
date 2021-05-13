@@ -11,7 +11,6 @@ dotenv.config({
 });
 
 const { DB_USERNAME, DB_PASSWORD, DB,  DB_URL, DB_PORT } = process.env
-console.log(`postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_URL}:${DB_PORT}/${DB}`)
 
 const db = pgp(`postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_URL}:${DB_PORT}/${DB}`)
 
