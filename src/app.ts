@@ -1,8 +1,9 @@
 import dotenv from 'dotenv';
-var express = require('express');
-var { graphqlHTTP } = require('express-graphql');
-var { buildSchema } = require('graphql');
-var pgp = require('pg-promise')(/* options */)
+import express from 'express';
+import { graphqlHTTP } from 'express-graphql';
+import { buildSchema } from 'graphql';
+
+const pgp = require('pg-promise')(/* options */)
 
 // load the environment variables from the .env file
 dotenv.config({
@@ -12,7 +13,7 @@ dotenv.config({
 const { DB_USERNAME, DB_PASSWORD, DB,  DB_URL, DB_PORT } = process.env
 console.log(`postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_URL}:${DB_PORT}/${DB}`)
 
-var db = pgp(`postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_URL}:${DB_PORT}/${DB}`)
+const db = pgp(`postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_URL}:${DB_PORT}/${DB}`)
 
 type Person = {
   first_name: String,
@@ -43,7 +44,7 @@ const getPerson = async (name: String) => {
 }
  
 /// Construct a schema, using GraphQL schema language
-var schema = buildSchema(`
+const schema = buildSchema(`
   type Mutation {
     createPerson(
       first_name: String!,
@@ -69,7 +70,7 @@ var schema = buildSchema(`
 `);
 
 // The root provides a resolver function for each API endpoint
-var root = {
+const root = {
   createPerson: (props: Person) => {
     return createPerson(props);
   },
@@ -78,7 +79,7 @@ var root = {
   },
 };
  
-var app = express();
+const app = express();
 app.use('/graphql', graphqlHTTP({
   schema: schema,
   rootValue: root,
