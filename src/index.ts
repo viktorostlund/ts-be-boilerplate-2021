@@ -30,7 +30,6 @@ const getPerson = async (name: string) => {
   }
 }
 
-// Construct a schema, using GraphQL schema language
 const typeDefs = gql`
   type Mutation {
     createPerson(
@@ -56,11 +55,10 @@ const typeDefs = gql`
   }
 `;
 
-// Provide resolver functions for your schema fields
 const resolvers = {
   Mutation: {
-    createPerson: async (props: Person) => { // FIX this similar to getPerson
-      return await createPerson(props);
+    createPerson: async (parent: any, args: Person) => {
+      return await createPerson(args);
     },
   },
   Query: {
@@ -78,26 +76,3 @@ server.applyMiddleware({ app });
 app.listen({ port: process.env.PORT || 4000 }, () =>
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 );
-
-// const schema = buildSchema(`
-  
-// `);
-
-// const root = {
-//   createPerson: (props: Person) => {
-//     return createPerson(props);
-//   },
-//   getPerson: ({name}: {name: string}) => {
-//     return getPerson(name);
-//   },
-// };
- 
-// const app = express();
-// app.use('/graphql', graphqlHTTP({
-//   schema: schema,
-//   rootValue: root,
-//   graphiql: true,
-// }));
-// const port = process.env.PORT || 4000
-// app.listen(port);
-// console.log('Running a GraphQL API server at localhost:4000/graphql');
