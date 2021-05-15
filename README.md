@@ -4,8 +4,11 @@ Basic NodeJS/Typescript API for getting or creating data about people to and fro
 
 ## Endpoints
 
-- createPerson
-- getPerson
+### Queries:
+- getPerson(name: string): Person
+
+### Mutations:
+- createPerson(args: Person): Person
 ## Run the app
 
 Run app: `npm run dev`
@@ -17,9 +20,8 @@ Compile TS and then run app: `npm start`
 - Express
 
 ## To do
-- Adopt Apollo to make app more scalable and easy to use
-- Refactor resolvers, schemas, controllers, routes etc
 - Add logger
 - Add code gen
+- Improve postgres connection (by using pg instead of pgp?)
 - Check out KNEX
 - Make API more useful
