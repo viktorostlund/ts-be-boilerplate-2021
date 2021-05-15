@@ -1,9 +1,8 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import { graphqlHTTP } from 'express-graphql';
-import { buildSchema } from 'graphql';
 import pgp from 'pg-promise'
 import { Person } from './types/types';
+import { ApolloServer, gql } from 'apollo-server-express';
 
 dotenv.config({
   path: '.env'
@@ -31,7 +30,8 @@ const getPerson = async (name: string) => {
   }
 }
 
-const schema = buildSchema(`
+// Construct a schema, using GraphQL schema language
+const typeDefs = gql`
   type Mutation {
     createPerson(
       first_name: String!,
@@ -54,23 +54,50 @@ const schema = buildSchema(`
     country_of_birth: String
     car_uid: String
   }
-`);
+`;
 
-const root = {
-  createPerson: (props: Person) => {
-    return createPerson(props);
+// Provide resolver functions for your schema fields
+const resolvers = {
+  Mutation: {
+    createPerson: async (props: Person) => { // FIX this similar to getPerson
+      return await createPerson(props);
+    },
   },
-  getPerson: ({name}: {name: string}) => {
-    return getPerson(name);
-  },
+  Query: {
+    getPerson: async (parent: any, {name}: {name: string}) => {
+      return await getPerson(name);
+    },
+  }
 };
- 
+
+const server = new ApolloServer({ typeDefs, resolvers });
+
 const app = express();
-app.use('/graphql', graphqlHTTP({
-  schema: schema,
-  rootValue: root,
-  graphiql: true,
-}));
-const port = process.env.PORT || 4000
-app.listen(port);
-console.log('Running a GraphQL API server at localhost:4000/graphql');
+server.applyMiddleware({ app });
+
+app.listen({ port: process.env.PORT || 4000 }, () =>
+  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+);
+
+// const schema = buildSchema(`
+  
+// `);
+
+// const root = {
+//   createPerson: (props: Person) => {
+//     return createPerson(props);
+//   },
+//   getPerson: ({name}: {name: string}) => {
+//     return getPerson(name);
+//   },
+// };
+ 
+// const app = express();
+// app.use('/graphql', graphqlHTTP({
+//   schema: schema,
+//   rootValue: root,
+//   graphiql: true,
+// }));
+// const port = process.env.PORT || 4000
+// app.listen(port);
+// console.log('Running a GraphQL API server at localhost:4000/graphql');
