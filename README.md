@@ -15,3 +15,11 @@ Compile TS and then run app: `npm start`
 - GraphQL
 - Postgres
 - Express
+
+## To do
+- Adopt Apollo to make app more scalable and easy to use
+- Refactor resolvers, schemas, controllers, routes etc
+- Add logger
+- Add code gen
+- Check out KNEX
+- Make API more useful
