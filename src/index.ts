@@ -3,6 +3,7 @@ import express from 'express';
 import { graphqlHTTP } from 'express-graphql';
 import { buildSchema } from 'graphql';
 import pgp from 'pg-promise'
+import { Person } from './types/types';
 
 dotenv.config({
   path: '.env'
@@ -11,14 +12,6 @@ dotenv.config({
 const pgPromise = pgp()
 const { DB_USERNAME, DB_PASSWORD, DB,  DB_URL, DB_PORT } = process.env
 const db = pgPromise(`postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_URL}:${DB_PORT}/${DB}`)
-
-interface Person {
-  first_name: string,
-  last_name: string,
-  gender: string,
-  date_of_birth: string,
-  country_of_birth: string
-}
 
 // Create Person in DB
 const createPerson = async ({first_name, last_name, gender, date_of_birth, country_of_birth}: Person) => {
