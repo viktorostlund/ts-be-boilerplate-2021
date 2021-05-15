@@ -20,8 +20,8 @@ Compile TS and then run app: `npm start`
 - Express
 
 ## Future improvements
-* Improve postgres connection (by using pg instead of pgp?)
-* Make API more useful
-* Add code gen
-* Add logger
-* Check out if KNEX could be useful
+1. Improve postgres connection (by using pg instead of pgp?)
+1. Make API more useful
+1. Add code gen
+1. Add logger
+1. Check out if KNEX could be useful
