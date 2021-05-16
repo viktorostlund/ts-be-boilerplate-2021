@@ -11,7 +11,10 @@ export default gql`
         ): Person
     }
     type Query {
-        getPerson(name: String): Person
+        getNumberOfPeople(first_name: String): Int,
+        getAllPeople: [
+            Person
+        ]
     }
     type Person {
         id: Int
