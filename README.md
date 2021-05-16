@@ -5,10 +5,10 @@ Basic NodeJS/Typescript API for getting or creating data about people to and fro
 ## Endpoints
 
 ### Queries
-- getPerson(name: string): Person
+- persons(args: Person): [ Person ]
 
 ### Mutations
-- createPerson(args: Person): Person
+- person(args: Person): Person
 ## Run the app
 
 Run app: `npm run dev`
