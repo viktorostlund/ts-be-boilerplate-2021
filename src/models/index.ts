@@ -10,10 +10,16 @@ export const createPerson = ({first_name, last_name, gender, date_of_birth, coun
     }
   }
   
-  export const getPersons = async () => {
+  export const getPersons = async (args: any) => {
+    let where = ''
+    if (Object.keys(args).length) {
+      const keys = Object.keys(args)
+      for (let i = 0; i < keys.length; i++) {
+        where += ` ${i < 1 ? 'WHERE' : 'AND'} ${keys[i]} = '${args[keys[i]]}' `
+      }
+    }
     try {
-      const result = await db.any(`SELECT * FROM person;`)
-      console.log(result)
+      const result = await db.any(`SELECT * FROM person${where};`)
       return result;
     } catch (error) {
       console.error(error)

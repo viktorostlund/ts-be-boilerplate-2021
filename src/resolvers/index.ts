@@ -8,8 +8,8 @@ export default {
         },
     },
     Query: {
-        persons: async () => {
-            return await getPersons();
+        persons: async (parent: any, args: Person) => {
+            return await getPersons(args);
         },
     }
 }

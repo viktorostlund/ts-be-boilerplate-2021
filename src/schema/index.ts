@@ -3,15 +3,21 @@ import { gql } from 'apollo-server-express';
 export default gql`
     type Mutation {
         person(
-        first_name: String!,
-        last_name: String!,
-        gender: String!,
-        date_of_birth: String!,
-        country_of_birth: String!
+            first_name: String!,
+            last_name: String!,
+            gender: String!,
+            date_of_birth: String!,
+            country_of_birth: String!
         ): Person
     }
     type Query {
-        persons: [
+        persons(
+            first_name: String,
+            last_name: String,
+            gender: String,
+            date_of_birth: String,
+            country_of_birth: String
+        ): [
             Person
         ]
     }
