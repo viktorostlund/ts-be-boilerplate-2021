@@ -10,17 +10,7 @@ export const createPerson = ({first_name, last_name, gender, date_of_birth, coun
     }
   }
   
-  export const getNumberOfPeople = async (first_name: string) => {
-    try {
-      const result = await db.any(`SELECT * FROM person WHERE first_name = '${first_name}';`)
-      return result.length
-    } catch (error) {
-      console.error(error)
-      return error.message
-    }
-  }
-  
-  export const getAllPeople = async () => {
+  export const getPersons = async () => {
     try {
       const result = await db.any(`SELECT * FROM person;`)
       console.log(result)

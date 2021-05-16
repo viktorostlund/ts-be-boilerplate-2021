@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express';
 
 export default gql`
     type Mutation {
-        createPerson(
+        person(
         first_name: String!,
         last_name: String!,
         gender: String!,
@@ -11,8 +11,7 @@ export default gql`
         ): Person
     }
     type Query {
-        getNumberOfPeople(first_name: String): Int,
-        getAllPeople: [
+        persons: [
             Person
         ]
     }
