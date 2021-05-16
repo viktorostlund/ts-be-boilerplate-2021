@@ -4,17 +4,18 @@ Basic NodeJS/Typescript API for getting or creating data about people to and fro
 
 ## Endpoints
 
-### Queries:
+### Queries
 - getPerson(name: string): Person
 
-### Mutations:
+### Mutations
 - createPerson(args: Person): Person
 ## Run the app
 
 Run app: `npm run dev`
 
 Compile TS and then run app: `npm start`
-## Technologies
+## Main tools and technologies
+- Node
 - GraphQL
 - Postgres
 - Express
