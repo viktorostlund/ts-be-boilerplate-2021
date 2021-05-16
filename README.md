@@ -21,7 +21,7 @@ Compile TS and then run app: `npm start`
 - Express
 
 ## Future improvements
-1. Make API more useful
+1. Add more endpoints such as delete and update
 1. Refactor queries
 1. Make logger log to file as well as console
 1. Add code gen
