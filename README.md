@@ -9,11 +9,13 @@ Basic NodeJS/Typescript API for getting or creating data about people to and fro
 
 ### Mutations
 - person(args: Person): Person
-## Run the app
 
-Run app: `npm run dev`
+## Run the app locally
 
-Compile TS and then run app: `npm start`
+1. Set up database: `docker-compose up -d`
+1. Run migrations: `npx knex migrate:latest`
+1. Run project: `npm run start:dev` or `npm start` (to compile TS first)
+
 ## Main tools and technologies
 - Node
 - GraphQL
@@ -25,5 +27,4 @@ Compile TS and then run app: `npm start`
 1. Refactor queries
 1. Make logger log to file as well as console
 1. Add code gen
-1. Check out if KNEX could be useful
 1. Add data loader

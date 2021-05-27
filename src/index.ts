@@ -1,19 +1,32 @@
 import logger from 'morgan';
 import dotenv from 'dotenv';
 import express from 'express';
-import pgp from 'pg-promise'
+import { Client } from 'pg'
 import { ApolloServer } from 'apollo-server-express';
 
 import { loggerParser } from './utils';
 import resolvers from './resolvers';
 import schema from './schema';
 
-const pgPromise = pgp()
+export const db = new Client({
+  host: 'localhost',
+  port: 6789,
+  user: 'user',
+  password: 'pass',
+  database: 'backend_boilerplate_db'
+})
+
 dotenv.config({
   path: '.env'
 });
 
-export const db = pgPromise(process.env.DB_URL!)
+db.connect(err => {
+  if (err) {
+    console.error('connection error', err.stack)
+  } else {
+    console.log('connected')
+  }
+})
 
 const server = new ApolloServer({ typeDefs: schema, resolvers});
 

@@ -1,0 +1,10 @@
+version: '3'
+services:
+  database:
+    image: 'postgres:11'
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: backend_boilerplate_db
+    ports:
+      - '6789:5432'
