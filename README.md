@@ -17,14 +17,17 @@ Basic NodeJS/Typescript API for getting or creating data about people to and fro
 1. Run project: `npm run start:dev` or `npm start` (to compile TS first)
 
 ## Main tools and technologies
-- Node
+- NodeJS
+- ExpressJS
 - GraphQL
-- Postgres
-- Express
+- PostgreSQL
+- KNEX
 
 ## Future improvements
+1. Insert rows in migrations
+1. Use data loader to load relation data more efficient
 1. Add more endpoints such as delete and update
-1. Refactor queries
+1. Refactor queries with KNEX
 1. Make logger log to file as well as console
 1. Add code gen
-1. Add data loader
+1. Send database to Apollo server through context

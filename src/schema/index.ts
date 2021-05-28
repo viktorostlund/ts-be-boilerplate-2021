@@ -9,9 +9,14 @@ export default gql`
             date_of_birth: String!,
             country_of_birth: String!
         ): Person
+        car(
+            make: String!
+            model: String!
+            price: Int!
+        ): Car
     }
     type Query {
-        persons(
+        people(
             first_name: String,
             last_name: String,
             gender: String,
@@ -22,13 +27,19 @@ export default gql`
         ]
     }
     type Person {
-        id: Int
+        person_uid: Int
         first_name: String
         last_name: String
         gender: String
         email: String
         date_of_birth: String
         country_of_birth: String
-        car_uid: String
+        car: Car
+    }
+    type Car {
+        car_uid: Int
+        make: String
+        model: String
+        price: Int
     }
 `

@@ -1,15 +1,15 @@
-import { createPerson, getPersons } from '../models';
+import { createPerson, createCar, getPeople, getCar } from '../models';
 import { Person } from '../types/types';
 
 export default {
     Mutation: {
-        person: async (parent: any, args: Person) => {
-            return await createPerson(args);
-        },
+        person: createPerson,
+        car: createPerson
     },
     Query: {
-        persons: async (parent: any, args: Person) => {
-            return await getPersons(args);
-        },
+        people: getPeople,
+    },
+    Person: {
+        car: getCar
     }
 }

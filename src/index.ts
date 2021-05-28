@@ -22,9 +22,9 @@ dotenv.config({
 
 db.connect(err => {
   if (err) {
-    console.error('connection error', err.stack)
+    console.error('Connection with database failed: ', err.stack)
   } else {
-    console.log('connected')
+    console.log('Connected to database')
   }
 })
 
