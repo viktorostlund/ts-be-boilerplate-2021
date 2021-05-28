@@ -6,6 +6,6 @@ exports.up = async function (knex) {
 
 exports.down = async function (knex) {
   await knex.raw(`
-    DELETE EXTENSION IF EXISTS "uuid-ossp"
+    DROP EXTENSION IF EXISTS "uuid-ossp"
 	`);
   };
