@@ -24,8 +24,6 @@ Basic NodeJS/Typescript API for getting or creating data about people to and fro
 - KNEX
 
 ## Future improvements
-1. Insert rows in migrations
-1. Use data loader to load relation data more efficient
 1. Add more endpoints such as delete and update
 1. Refactor queries with KNEX
 1. Make logger log to file as well as console
